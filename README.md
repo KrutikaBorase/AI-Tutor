@@ -98,18 +98,4 @@ Data Science Engineering Student
 
 ⭐ Support
 
-If you like this project, consider giving it a ⭐ on GitHub!
-
-
----
-
-# 🎯 Done
-
-👉 This is the **final version** — no edits needed  
-👉 Just paste → commit → push  
-
----
-
-If you want next:
-✔ I can help you **add RAG (next-level upgrade for interviews)**  
-✔ or optimize your **GitHub profile to stand out** 🚀
+If you like this project, consider giving it a ⭐ 
