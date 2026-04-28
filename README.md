@@ -167,11 +167,17 @@ We welcome contributions! Please see our Contributing Guidelines for details.
 
 Ways to Contribute
 🐛 Report bugs and issues
+
 💡 Suggest new features
+
 📖 Improve documentation
+
 🧪 Add test cases
+
 🎨 Enhance UI/UX
+
 📊 Performance Metrics
+
 Model	Size	Speed	Education Quality
 Gemma3	3.3GB	Fast	⭐⭐⭐⭐⭐
 DeepSeek Coder	776MB	Very Fast	⭐⭐⭐⭐ (CS Topics)
