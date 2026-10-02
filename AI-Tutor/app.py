@@ -4,9 +4,8 @@ AI Tutor - Local AI Study Buddy
 A privacy-focused AI tutoring application that runs entirely on your local machine.
 Provides personalized explanations and generates custom quizzes across multiple subjects.
 
-Author: Hariom Kumar
-License: MIT
-Repository: https://github.com/hari7261/AI-Tutor
+Author: Krutika Borase
+Repository: https://github.com/KrutikaBorase/AI-Tutor
 """
 
 import streamlit as st
@@ -49,7 +48,7 @@ def get_available_models():
                 elif isinstance(model, str):
                     model_names.append(model)
         
-        # Prioritize models - check for exact matches and partial matches
+        # Prioritize preferred models
         preferred_order = ['gemma3:latest', 'gemma3', 'gemma2:2b', 'gemma2', 'llama3', 'mistral', 'deepseek-coder']
         ordered_models = []
         
