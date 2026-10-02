@@ -157,7 +157,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.
 
 
 👩‍💻 Author
-Krutika Borase
+- Krutika Borase
 
 B.Tech Data Science Engineering Graduate
 GitHub
