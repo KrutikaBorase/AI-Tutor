@@ -1,25 +1,35 @@
 # 📚 Usage Guide
 
-Learn how to effectively use AI Tutor to enhance your learning experience. This guide covers all features and provides practical examples.
+Learn how to effectively use AI Tutor and explore its available learning features.
 
 ## Getting Started
 
 ### 1. Launch the Application
+
 ```bash
 cd AI-Tutor
 streamlit run app.py
 ```
 
+Open your browser and visit:
+
+`http://localhost:8501`
+
 ### 2. Configure Your Preferences
-The sidebar contains all your learning preferences:
+
+Use the sidebar to configure your learning preferences.
 
 #### Education Level
-- **School** (Ages 6-14): Simple explanations, basic vocabulary
-- **High School** (Ages 14-18): Moderate complexity, exam preparation
-- **Graduate** (Ages 18-22): Advanced concepts, research-oriented
-- **PG/PhD** (Ages 22+): Expert-level explanations, cutting-edge topics
+
+- **School**: Simple explanations and basic vocabulary
+- **High School**: Moderate complexity and exam-oriented explanations
+- **Graduate**: Advanced concepts and technical explanations
+- **PG/PhD**: Expert-level and advanced explanations
 
 #### Subject Selection
+
+Available subjects include:
+
 - **Math**: Algebra, calculus, statistics, geometry
 - **History**: World history, regional studies, historical analysis
 - **Computer Science**: Programming, algorithms, data structures
@@ -28,89 +38,81 @@ The sidebar contains all your learning preferences:
 - **Chemistry**: Organic, inorganic, physical chemistry
 
 #### Learning Mode
-- **Explain a Topic**: Get detailed explanations
-- **Generate a Quiz**: Create practice questions
 
-## Feature Deep Dive
+- **Explain a Topic**: Get explanations for concepts and questions
+- **Generate a Quiz**: Generate practice questions for a selected topic
+
+## Feature Guide
 
 ### 🎯 Explanation Mode
 
-Perfect for understanding new concepts or getting clarification on difficult topics.
+Use Explanation Mode to learn a new concept or understand a difficult topic.
 
-#### Example Queries
+#### Example
 
-**Math - High School Level:**
-```
-Input: "Explain quadratic equations"
-Output: Step-by-step breakdown including:
+```text
+Input:
+"Explain quadratic equations"
+
+The response can cover:
 - Definition and standard form
-- Methods of solving (factoring, quadratic formula)
-- Real-world applications
-- Practice examples
+- Methods of solving
+- Examples
+- Applications
 ```
 
-**Computer Science - Graduate Level:**
-```
-Input: "Explain machine learning algorithms"
-Output: Comprehensive coverage including:
-- Types of ML algorithms
-- Mathematical foundations
+Another example:
+
+```text
+Input:
+"Explain machine learning algorithms"
+
+The response can cover:
+- Different algorithm types
+- Core concepts
 - Implementation considerations
-- Use cases and limitations
+- Use cases
+- Limitations
 ```
 
-**Physics - School Level:**
-```
-Input: "How does gravity work?"
-Output: Simple explanation with:
-- Basic concept of gravity
-- Everyday examples
-- Fun facts and demonstrations
-```
+### Best Practices
 
-#### Best Practices for Explanations
-- **Be Specific**: "Explain photosynthesis in plants" vs "Tell me about plants"
-- **Ask Follow-ups**: Build on previous explanations
-- **Request Examples**: "Can you give me real-world examples?"
-- **Seek Clarification**: "Can you explain that part about..."
+- **Be specific**: Ask "Explain photosynthesis in plants" instead of "Tell me about plants".
+- **Ask follow-up questions** to explore a concept further.
+- **Request examples** when a concept is difficult.
+- **Ask for clarification** on specific parts of an explanation.
 
-### 🧩 Quiz Mode
+## 🧩 Quiz Mode
 
-Ideal for testing your knowledge and exam preparation.
+Use Quiz Mode to test your understanding and practice a topic.
 
-#### Example Quiz Generations
+### Example
 
-**History - High School:**
-```
-Input: "World War 2"
-Output: Multiple-choice question with:
-- Clear question about WW2
-- 4 realistic options (A, B, C, D)
-- Correct answer marked [CORRECT]
-- Detailed explanation of the answer
+```text
+Input:
+"World War 2"
+
+The generated quiz may include:
+- A clear question
+- Multiple-choice options
+- A correct answer
+- An explanation
 ```
 
-**Math - Graduate Level:**
-```
-Input: "Calculus derivatives"
-Output: Problem-solving question with:
-- Mathematical problem
-- Multiple solution approaches
-- Step-by-step solution
-- Common mistake warnings
-```
+### Quiz Tips
 
-#### Quiz Generation Tips
-- **Topic Specificity**: "Mitochondrial function" vs "Biology"
-- **Difficulty Adjustment**: The AI adapts to your education level
-- **Practice Sessions**: Generate multiple quizzes on the same topic
-- **Review Mode**: Ask for explanations of quiz answers
+- Be specific about the topic.
+- Adjust the education level for the desired difficulty.
+- Generate multiple quizzes for additional practice.
+- Ask for explanations of incorrect answers.
 
 ## Advanced Usage Patterns
 
 ### 1. Progressive Learning
-Start with broad topics and drill down:
-```
+
+Start with a broad topic and gradually explore more specific concepts:
+
+```text
 Session 1: "Explain machine learning"
 Session 2: "Tell me more about neural networks"
 Session 3: "How do convolutional neural networks work?"
@@ -118,16 +120,20 @@ Session 4: "Quiz me on CNN architecture"
 ```
 
 ### 2. Exam Preparation
-Combine explanations and quizzes:
-```
-Week 1: Explanation mode for all topics
-Week 2: Quiz mode for weak areas
-Week 3: Mixed review with both modes
+
+Combine explanation and quiz modes:
+
+```text
+Week 1: Learn concepts using Explanation Mode
+Week 2: Practice weak areas using Quiz Mode
+Week 3: Review topics using both modes
 ```
 
 ### 3. Project-Based Learning
-Use for real-world applications:
-```
+
+Use AI Tutor to understand concepts related to real-world projects:
+
+```text
 "Explain how to build a simple web application"
 "What are the steps in data analysis?"
 "How do I design a science experiment?"
@@ -135,131 +141,141 @@ Use for real-world applications:
 
 ## Model Selection Guide
 
-### 🧠 Gemma3 (Recommended)
-- **Best for**: General education, explanations
-- **Strengths**: Clear explanations, good examples
-- **Size**: 3.3GB
-- **Use when**: Learning any subject comprehensively
+### 🧠 Gemma3
+
+- **Best for**: General learning and explanations
+- **Strengths**: General-purpose educational responses
+- **Use when**: You want a general learning assistant
 
 ### 💻 DeepSeek Coder
-- **Best for**: Computer Science, Programming
-- **Strengths**: Code examples, technical accuracy
-- **Size**: 776MB
-- **Use when**: Learning programming or CS concepts
+
+- **Best for**: Programming and computer science
+- **Strengths**: Code-focused responses
+- **Use when**: Learning programming or technical concepts
 
 ### 🚀 Llama3
-- **Best for**: Alternative general-purpose model
-- **Strengths**: Balanced performance
-- **Size**: 4.7GB
-- **Use when**: Gemma3 isn't available
+
+- **Best for**: General-purpose use
+- **Strengths**: Alternative general model
+- **Use when**: Another general-purpose option is preferred
 
 ## Learning Strategies
 
 ### 📖 For Students
 
 #### Daily Study Routine
-1. **Morning Review** (15 mins)
-   - Quiz mode on previous day's topics
-   - Identify weak areas
 
-2. **Learning Session** (45 mins)
-   - Explanation mode for new concepts
-   - Take notes on key points
+1. **Review**
+   - Quiz yourself on previous topics.
+   - Identify areas that need improvement.
 
-3. **Practice Session** (30 mins)
-   - Quiz mode on new topics
-   - Review incorrect answers
+2. **Learning Session**
+   - Use Explanation Mode for new concepts.
+   - Take notes on important points.
 
-#### Exam Preparation
-1. **Topic Mapping** (Week 1)
-   - List all exam topics
-   - Get explanations for each
+3. **Practice**
+   - Use Quiz Mode.
+   - Review incorrect answers.
 
-2. **Intensive Practice** (Week 2-3)
-   - Daily quizzes on all topics
-   - Focus on weak areas
+### Exam Preparation
 
-3. **Final Review** (Week 4)
-   - Mixed quizzes
-   - Quick explanation refreshers
+1. **Topic Mapping**
+   - List the subjects and topics you need to study.
+   - Use AI Tutor to understand each topic.
+
+2. **Practice**
+   - Generate quizzes regularly.
+   - Focus on difficult areas.
+
+3. **Final Review**
+   - Use mixed questions.
+   - Ask for quick explanations of key concepts.
 
 ### 🎓 For Educators
 
-#### Lesson Planning
-- Generate quiz questions for class
-- Get different explanation approaches
-- Create homework problems
+AI Tutor can be used to:
 
-#### Student Support
-- Provide personalized explanations
-- Generate practice materials
-- Offer different difficulty levels
+- Generate practice questions.
+- Explore different explanation styles.
+- Create learning material ideas.
+- Provide alternative explanations for students.
 
 ## Tips for Effective Learning
 
-### 📝 Note-Taking Integration
-- Copy important explanations to your notes
-- Screenshot quiz questions for review
-- Create summary documents
+### 📝 Note Taking
+
+- Save important explanations in your notes.
+- Keep useful quiz questions for revision.
+- Create summaries of difficult concepts.
 
 ### 🔄 Iterative Learning
-- Ask follow-up questions for clarity
-- Request alternative explanations
-- Seek connections between topics
+
+- Ask follow-up questions.
+- Request alternative explanations.
+- Connect related concepts together.
 
 ### 🎯 Goal-Oriented Sessions
-- Set specific learning objectives
-- Track your progress mentally
-- Review and reflect on sessions
+
+- Define what you want to learn before starting.
+- Focus questions on a specific topic.
+- Review difficult concepts before moving on.
 
 ## Keyboard Shortcuts
 
 | Action | Shortcut |
 |--------|----------|
-| Focus chat input | `Ctrl + L` |
+| Focus browser address bar | `Ctrl + L` |
 | Submit message | `Enter` |
 | New line in input | `Shift + Enter` |
 | Clear chat | Refresh page |
 
 ## Privacy and Data
 
-### What Stays Local
-- ✅ All your questions and conversations
-- ✅ AI model responses
-- ✅ Learning preferences and history
-- ✅ Generated quizzes and explanations
+AI Tutor is designed to run locally with Ollama.
 
-### What Never Leaves Your Device
-- ❌ Personal information
-- ❌ Study materials
-- ❌ Conversation history
-- ❌ Usage patterns
+### Local Application Data
+
+The application is intended to keep your learning interactions local to your device when using local models.
+
+This includes:
+
+- Questions
+- Conversation content
+- Model responses
+- Learning preferences
+- Generated explanations and quizzes
+
+Actual behavior can depend on the configuration and software components you use.
 
 ## Common Use Cases
 
 ### 📚 Homework Help
-```
+
+```text
 "Explain how to solve this physics problem: [paste problem]"
 "What are the key themes in Romeo and Juliet?"
 "How do I write a good research paper?"
 ```
 
 ### 🧪 Research Projects
-```
-"What are the latest developments in renewable energy?"
+
+```text
 "Explain the methodology for statistical analysis"
 "How do I design an experiment for [topic]?"
+"Explain the background of [topic]"
 ```
 
 ### 📊 Test Preparation
-```
-"Generate SAT math practice questions"
-"Quiz me on AP Biology topics"
-"Create GRE verbal reasoning problems"
+
+```text
+"Generate math practice questions"
+"Quiz me on biology topics"
+"Create verbal reasoning practice problems"
 ```
 
 ### 💼 Professional Development
-```
+
+```text
 "Explain modern software development practices"
 "What are the principles of project management?"
 "How does financial analysis work?"
@@ -267,22 +283,42 @@ Use for real-world applications:
 
 ## Troubleshooting Usage Issues
 
-### AI Responses Are Too Simple/Complex
-- **Solution**: Adjust your education level setting
-- **Tip**: Try different levels to find your sweet spot
+### AI Responses Are Too Simple or Too Complex
 
-### Quiz Questions Are Too Easy/Hard
-- **Solution**: Change education level or be more specific
-- **Example**: "Graduate-level organic chemistry quiz"
+- Adjust the education level.
+- Ask the model to simplify or increase the technical depth.
+
+Example:
+
+```text
+"Explain this concept at a graduate level."
+```
+
+### Quiz Questions Are Too Easy or Too Difficult
+
+- Change the education level.
+- Make the topic more specific.
+
+Example:
+
+```text
+"Generate a graduate-level organic chemistry quiz."
+```
 
 ### Explanations Lack Detail
-- **Solution**: Ask follow-up questions
-- **Example**: "Can you explain that in more detail?"
+
+Ask a follow-up question:
+
+```text
+"Can you explain that in more detail?"
+```
 
 ### Model Responses Are Slow
-- **Solution**: Switch to a smaller model
-- **Alternative**: Close other applications to free up RAM
+
+- Try a smaller Ollama model.
+- Close unnecessary applications.
+- Check available RAM and system resources.
 
 ---
 
-Ready to start learning? Try asking your first question! 🚀
+Ready to start learning? 🚀
