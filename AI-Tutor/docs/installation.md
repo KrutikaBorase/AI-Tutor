@@ -5,34 +5,43 @@ This guide provides detailed installation instructions for the AI Tutor applicat
 ## System Requirements
 
 ### Minimum Requirements
-- **OS**: Windows 10+, macOS 10.15+, or Linux (Ubuntu 18.04+)
+
+- **OS**: Windows 10+, macOS 10.15+, or Linux
 - **RAM**: 8GB (16GB recommended for optimal performance)
-- **Storage**: 10GB free space (for models and dependencies)
+- **Storage**: 10GB free space for models and dependencies
 - **Python**: 3.7 or higher
 
 ### Recommended Requirements
+
 - **RAM**: 16GB or higher
 - **Storage**: 20GB+ SSD for faster model loading
-- **GPU**: Optional, but improves performance with compatible models
+- **GPU**: Optional, but can improve performance with compatible models
 
 ## Installation Steps
 
 ### 1. Install Python
 
 #### Windows
+
 1. Download Python from [python.org](https://www.python.org/downloads/)
-2. Run the installer and check "Add Python to PATH"
-3. Verify installation: `python --version`
+2. Run the installer and check **"Add Python to PATH"**
+3. Verify the installation:
+
+```bash
+python --version
+```
 
 #### macOS
+
 ```bash
-# Using Homebrew (recommended)
+# Using Homebrew
 brew install python
 
 # Or download from python.org
 ```
 
 #### Linux (Ubuntu/Debian)
+
 ```bash
 sudo apt update
 sudo apt install python3 python3-pip python3-venv
@@ -41,36 +50,41 @@ sudo apt install python3 python3-pip python3-venv
 ### 2. Install Ollama
 
 #### Windows
-1. Download from [ollama.ai](https://ollama.ai/download)
+
+1. Download Ollama from [ollama.com](https://ollama.com/download)
 2. Run the installer
-3. Ollama will start automatically
+3. Launch Ollama
 
 #### macOS
+
 ```bash
 # Using Homebrew
 brew install ollama
 
-# Or download from ollama.ai
+# Or download from ollama.com
 ```
 
 #### Linux
+
 ```bash
-curl -fsSL https://ollama.ai/install.sh | sh
+curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-### 3. Clone and Setup AI Tutor
+### 3. Clone and Set Up AI Tutor
 
 ```bash
 # Clone the repository
-git clone https://github.com/hari7261/AI-Tutor.git
+git clone https://github.com/KrutikaBorase/AI-Tutor.git
 cd AI-Tutor
 
-# Create virtual environment (recommended)
+# Create a virtual environment
 python -m venv ai-tutor-env
 
-# Activate virtual environment
+# Activate the virtual environment
+
 # Windows:
 ai-tutor-env\Scripts\activate
+
 # macOS/Linux:
 source ai-tutor-env/bin/activate
 
@@ -78,69 +92,89 @@ source ai-tutor-env/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Install AI Models
+### 4. Install an AI Model
 
-#### Quick Setup (Recommended)
+#### Quick Setup
+
 ```bash
-# Install Gemma3 (best for education)
+# Install Gemma3
 ollama pull gemma3
 
-# Start Ollama (if not running)
+# Start Ollama if it is not already running
 ollama serve
 ```
 
-#### Advanced Setup
+#### Alternative Models
+
 ```bash
-# For programming and computer science
+# Programming and computer science
 ollama pull deepseek-coder
 
-# Alternative general model
+# General-purpose alternative
 ollama pull llama3
 
-# Lightweight option for slower systems
+# Lightweight option
 ollama pull gemma2:2b
 ```
 
-### 5. Verify Installation
+### 5. Verify the Installation
 
 ```bash
-# Check Ollama is running
+# Check installed Ollama models
 ollama list
 
 # Start the application
 streamlit run app.py
 ```
 
-Open your browser and navigate to `http://localhost:8501`
+Open your browser and navigate to:
+
+`http://localhost:8501`
 
 ## Platform-Specific Notes
 
 ### Windows
-- **Windows Defender**: May flag Ollama during installation - add exception
-- **PowerShell**: Use PowerShell or Command Prompt for commands
-- **Path Issues**: Ensure Python and pip are in your PATH
+
+- Use PowerShell or Command Prompt for terminal commands.
+- Make sure Python and pip are added to your PATH.
+- Windows Defender or firewall settings may require Ollama to be allowed.
 
 ### macOS
-- **Apple Silicon**: Ollama has native M1/M2 support
-- **Xcode**: May need Command Line Tools: `xcode-select --install`
-- **Permissions**: Allow Ollama in Security & Privacy settings
+
+- Ollama supports Apple Silicon Macs.
+- Command Line Tools may be required:
+
+```bash
+xcode-select --install
+```
 
 ### Linux
-- **Dependencies**: Install build essentials: `sudo apt install build-essential`
-- **NVIDIA GPU**: Install CUDA for GPU acceleration (optional)
-- **Firewall**: Ensure port 11434 is accessible for Ollama
 
-## Docker Installation (Alternative)
+Install required build tools when necessary:
+
+```bash
+sudo apt update
+sudo apt install build-essential
+```
+
+For GPU acceleration, compatible NVIDIA drivers and CUDA configuration may be required.
+
+## Docker Installation
+
+Docker can be used as an alternative setup method.
 
 ### Prerequisites
+
 - Docker installed and running
-- Docker Compose (optional but recommended)
+- Docker Compose installed if using Docker Compose
 
-### Using Docker Compose
+### Example Docker Compose Configuration
 
-1. Create `docker-compose.yml`:
+Create a `docker-compose.yml` file:
+
 ```yaml
 version: '3.8'
+
 services:
   ollama:
     image: ollama/ollama:latest
@@ -148,7 +182,7 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
-    
+
   ai-tutor:
     build: .
     ports:
@@ -162,7 +196,10 @@ volumes:
   ollama_data:
 ```
 
-2. Create `Dockerfile`:
+### Example Dockerfile
+
+Create a `Dockerfile`:
+
 ```dockerfile
 FROM python:3.11-slim
 
@@ -178,67 +215,102 @@ EXPOSE 8501
 CMD ["streamlit", "run", "app.py", "--server.address", "0.0.0.0"]
 ```
 
-3. Run with Docker Compose:
+Run the application:
+
 ```bash
 docker-compose up -d
 ```
 
 ## Troubleshooting Installation
 
-### Common Issues
+### "Python not found"
 
-#### "Python not found"
-- **Windows**: Reinstall Python with "Add to PATH" checked
-- **macOS/Linux**: Use `python3` instead of `python`
+- **Windows**: Reinstall Python with **Add Python to PATH** enabled.
+- **macOS/Linux**: Try `python3` instead of `python`.
 
-#### "pip not found"
-- Install pip: `python -m ensurepip --upgrade`
-- Or use: `python -m pip` instead of `pip`
+### "pip not found"
 
-#### "Ollama connection failed"
-- Check if Ollama is running: `ollama list`
-- Restart Ollama: `ollama serve`
-- Check port 11434 is not blocked
+Try:
 
-#### "Model not found"
-- Verify model installation: `ollama list`
-- Reinstall model: `ollama pull gemma3`
-- Check available models: `ollama list`
+```bash
+python -m ensurepip --upgrade
+```
 
-#### Memory issues
-- Use smaller models: `ollama pull gemma2:2b`
-- Close other applications
-- Increase virtual memory/swap
+or:
 
-### Performance Optimization
+```bash
+python -m pip
+```
 
-#### For Better Speed
-1. Use SSD storage for model files
-2. Increase system RAM
-3. Use smaller models for faster response
-4. Close unnecessary applications
+### "Ollama connection failed"
 
-#### For Better Quality
-1. Use larger models (gemma3, llama3)
-2. Ensure adequate RAM (16GB+)
-3. Use GPU acceleration if available
+Check whether Ollama is running:
+
+```bash
+ollama list
+```
+
+Start Ollama if required:
+
+```bash
+ollama serve
+```
+
+### "Model not found"
+
+Check installed models:
+
+```bash
+ollama list
+```
+
+Install a model:
+
+```bash
+ollama pull gemma3
+```
+
+### Memory Issues
+
+Try a smaller model:
+
+```bash
+ollama pull gemma2:2b
+```
+
+You can also close other applications to free system memory.
+
+## Performance Optimization
+
+### For Better Speed
+
+1. Use SSD storage for model files.
+2. Use smaller models.
+3. Close unnecessary applications.
+4. Use GPU acceleration when available.
+
+### For Better Quality
+
+1. Use larger models when your system can handle them.
+2. Use sufficient RAM.
+3. Use GPU acceleration when available.
 
 ## Next Steps
 
 After successful installation:
 
-1. **Read the Usage Guide**: [docs/usage.md](usage.md)
-2. **Try Example Queries**: Start with simple questions
-3. **Customize Settings**: Adjust education level and subjects
-4. **Explore Features**: Try both explanation and quiz modes
+1. Read the [Usage Guide](usage.md).
+2. Try a simple question.
+3. Explore the available learning modes.
+4. Experiment with different models and education levels.
 
 ## Getting Help
 
-If you encounter issues during installation:
+For help with installation:
 
-1. **Check Troubleshooting**: [docs/troubleshooting.md](troubleshooting.md)
-2. **GitHub Issues**: [Report a bug](https://github.com/hari7261/AI-Tutor/issues)
-3. **Discussions**: [Community help](https://github.com/hari7261/AI-Tutor/discussions)
+- Check the [Troubleshooting Guide](troubleshooting.md).
+- [Report an issue](https://github.com/KrutikaBorase/AI-Tutor/issues)
+- Visit [GitHub Discussions](https://github.com/KrutikaBorase/AI-Tutor/discussions)
 
 ---
 
