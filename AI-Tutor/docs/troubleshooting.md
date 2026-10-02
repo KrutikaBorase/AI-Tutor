@@ -1,477 +1,422 @@
 # 🔧 Troubleshooting Guide
 
-This guide helps you resolve common issues with AI Tutor. Most problems have simple solutions!
+This guide helps you resolve common issues with AI Tutor.
 
 ## Quick Diagnosis
 
-### 🚨 Emergency Checklist
-Before diving into specific issues, verify these basics:
+Before troubleshooting a specific issue, verify the following:
 
 - [ ] Ollama is installed and running
 - [ ] At least one AI model is downloaded
 - [ ] Python dependencies are installed
-- [ ] Port 8501 and 11434 are not blocked
-- [ ] Sufficient system resources (RAM/Storage)
+- [ ] Ports `8501` and `11434` are available
+- [ ] Sufficient RAM and storage are available
 
 ## Common Issues and Solutions
 
-### 1. "No Ollama models found"
+### 1. No Ollama Models Found
 
 #### Symptoms
-- Error message in sidebar: "⚠️ No Ollama models found"
-- Model dropdown is empty
-- Cannot start conversations
+
+- The model list is empty.
+- You see a message indicating that no Ollama models are available.
+- Conversations cannot be started.
 
 #### Diagnosis
-Check if Ollama is running and models are installed:
-```bash
-# Check if Ollama is running
-ollama list
 
-# If command fails, Ollama isn't running
+```bash
+ollama list
+```
+
+If Ollama is not running, start it:
+
+```bash
 ollama serve
 ```
 
-#### Solutions
+#### Install a Model
 
-**Solution A: Install Models**
 ```bash
-# Install recommended model
 ollama pull gemma3
-
-# Verify installation
 ollama list
 ```
 
-**Solution B: Restart Ollama**
-```bash
-# Stop Ollama (if running)
-pkill ollama
+#### Restart Ollama
 
-# Start Ollama
+```bash
 ollama serve
-
-# In new terminal, test
-ollama list
 ```
 
-**Solution C: Check Ollama Installation**
-```bash
-# Reinstall Ollama (if needed)
-# Windows: Download from ollama.ai
-# macOS: brew install ollama
-# Linux: curl -fsSL https://ollama.ai/install.sh | sh
-```
+## 2. Connection Errors
 
-### 2. Connection Errors
+### Symptoms
 
-#### Symptoms
 - "Error connecting to Ollama"
-- "Connection refused" messages
-- App hangs when starting conversation
+- "Connection refused"
+- The application hangs when starting a conversation
 
-#### Diagnosis
+### Diagnosis
+
+Test the Ollama API:
+
 ```bash
-# Test Ollama connection
 curl http://localhost:11434/api/version
+```
 
-# Check if port is in use
+Check whether port `11434` is being used:
+
+```bash
 netstat -an | grep 11434
 ```
 
-#### Solutions
+### Possible Solutions
 
-**Solution A: Port Conflict**
+#### Port Conflict
+
+**macOS/Linux:**
+
 ```bash
-# Find process using port 11434
-lsof -i :11434  # macOS/Linux
-netstat -ano | findstr :11434  # Windows
-
-# Kill conflicting process and restart Ollama
-ollama serve
+lsof -i :11434
 ```
 
-**Solution B: Firewall Issues**
-- **Windows**: Allow Ollama through Windows Defender
-- **macOS**: System Preferences → Security → Allow Ollama
-- **Linux**: Configure iptables or ufw to allow port 11434
+**Windows:**
 
-**Solution C: Service Issues**
 ```bash
-# Restart Ollama service
-# Windows: Restart from Services (services.msc)
-# macOS: brew services restart ollama
-# Linux: systemctl restart ollama
+netstat -ano | findstr :11434
 ```
 
-### 3. Model Performance Issues
+Restart Ollama after resolving the conflict.
 
-#### Symptoms
-- Very slow responses
-- App becomes unresponsive
-- High CPU/RAM usage
+#### Firewall Issues
 
-#### Diagnosis
-Check system resources:
+- **Windows**: Allow Ollama through Windows Firewall.
+- **macOS**: Check firewall and application permissions.
+- **Linux**: Check firewall rules for port `11434`.
+
+## 3. Model Performance Issues
+
+### Symptoms
+
+- Responses are very slow.
+- The application becomes unresponsive.
+- CPU or RAM usage becomes high.
+
+### Check System Resources
+
 ```bash
-# Check RAM usage
-free -h  # Linux
-top  # macOS/Linux
-taskmgr  # Windows
+# Linux
+free -h
 
-# Check available models and their sizes
+# macOS/Linux
+top
+
+# Windows
+taskmgr
+```
+
+Check installed models:
+
+```bash
 ollama list
 ```
 
-#### Solutions
+### Use a Smaller Model
 
-**Solution A: Use Smaller Models**
 ```bash
-# Remove large models
-ollama rm llama3
-
-# Install smaller alternatives
 ollama pull gemma2:2b
-ollama pull deepseek-coder
 ```
 
-**Solution B: Optimize System**
-- Close unnecessary applications
-- Increase virtual memory/swap
-- Use SSD for better I/O performance
+You can also remove unused models:
 
-**Solution C: Adjust Model Settings**
-```python
-# In app.py, modify the generate call
-response = ollama.generate(
-    model=model_name,
-    prompt=custom_prompt,
-    stream=True,
-    options={
-        'num_ctx': 2048,  # Reduce context window
-        'temperature': 0.7,  # Adjust creativity
-    }
-)
-```
-
-### 4. Streamlit Issues
-
-#### Symptoms
-- "Streamlit command not found"
-- App won't start
-- Browser doesn't open automatically
-
-#### Diagnosis
 ```bash
-# Check Streamlit installation
-pip list | grep streamlit
+ollama rm llama3
+```
 
-# Test Streamlit
+### General Optimization
+
+- Close unnecessary applications.
+- Use SSD storage.
+- Increase available RAM or swap when necessary.
+- Use a smaller model on resource-limited systems.
+
+## 4. Streamlit Issues
+
+### Symptoms
+
+- `streamlit` command is not recognized.
+- The application does not start.
+- The browser does not open automatically.
+
+### Check Streamlit
+
+```bash
+pip list | grep streamlit
+```
+
+Test Streamlit:
+
+```bash
 streamlit hello
 ```
 
-#### Solutions
+### Reinstall Dependencies
 
-**Solution A: Reinstall Dependencies**
+Activate the virtual environment first.
+
+**macOS/Linux:**
+
 ```bash
-# Activate virtual environment
-source ai-tutor-env/bin/activate  # macOS/Linux
-ai-tutor-env\Scripts\activate  # Windows
+source ai-tutor-env/bin/activate
+```
 
-# Reinstall requirements
+**Windows:**
+
+```bash
+ai-tutor-env\Scripts\activate
+```
+
+Then run:
+
+```bash
 pip install -r requirements.txt --force-reinstall
 ```
 
-**Solution B: Python Path Issues**
-```bash
-# Check Python installation
-which python  # macOS/Linux
-where python  # Windows
+### Run Streamlit on Another Port
 
-# Use full path if needed
-/usr/bin/python -m streamlit run app.py
-```
-
-**Solution C: Port Conflicts**
 ```bash
-# Use different port
 streamlit run app.py --server.port 8502
-
-# Or specify in config
-mkdir -p ~/.streamlit
-echo "[server]" > ~/.streamlit/config.toml
-echo "port = 8502" >> ~/.streamlit/config.toml
 ```
 
-### 5. Model Loading Errors
+## 5. Model Loading Errors
 
-#### Symptoms
-- "Model not found" errors
-- Specific model won't work
-- Model switches unexpectedly
+### Symptoms
 
-#### Diagnosis
+- "Model not found"
+- A selected model does not work.
+- The application cannot load a specific model.
+
+### Check Model Names
+
 ```bash
-# Check exact model names
 ollama list
+```
 
-# Test specific model
+Test a model directly:
+
+```bash
 ollama run gemma3 "Hello, how are you?"
 ```
 
-#### Solutions
+### Reinstall a Model
 
-**Solution A: Model Name Mismatch**
-```python
-# Check model names in app.py
-# Ensure they match exactly with `ollama list` output
-preferred_order = ['gemma3:latest', 'deepseek-coder:latest']
-```
-
-**Solution B: Corrupted Model**
 ```bash
-# Remove and reinstall model
 ollama rm gemma3
 ollama pull gemma3
 ```
 
-**Solution C: Version Conflicts**
-```bash
-# Update Ollama
-# Windows: Download latest from ollama.ai
-# macOS: brew upgrade ollama
-# Linux: curl -fsSL https://ollama.ai/install.sh | sh
-```
+Make sure the model name used by the application matches the model available in Ollama.
 
-### 6. UI and Display Issues
+## 6. UI and Display Issues
 
-#### Symptoms
+### Symptoms
+
 - Broken layout
 - Missing sidebar
-- Text formatting issues
+- Incorrect text formatting
 
-#### Solutions
+### Try the Following
 
-**Solution A: Browser Cache**
-- Clear browser cache and cookies
-- Try incognito/private mode
-- Use different browser
+- Clear your browser cache.
+- Open the application in private/incognito mode.
+- Try another browser.
+- Make sure JavaScript is enabled.
+- Disable browser extensions that may interfere.
 
-**Solution B: Streamlit Cache**
+### Clear Streamlit Cache
+
 ```bash
-# Clear Streamlit cache
 streamlit cache clear
 ```
 
-**Solution C: Browser Compatibility**
-- Use Chrome, Firefox, or Safari
-- Ensure JavaScript is enabled
-- Disable browser extensions that might interfere
+## 7. Memory and Resource Issues
 
-### 7. Memory and Resource Issues
+### Symptoms
 
-#### Symptoms
-- Out of memory errors
-- System becomes sluggish
-- App crashes randomly
+- Out-of-memory errors
+- System becomes slow
+- Application crashes unexpectedly
 
-#### Diagnosis
+### Check System Resources
+
+**Linux:**
+
 ```bash
-# Check system resources
-htop  # Linux
-Activity Monitor  # macOS
-Task Manager  # Windows
+htop
 ```
 
-#### Solutions
+**macOS:**
 
-**Solution A: Increase Virtual Memory**
-- **Windows**: Settings → System → About → Advanced system settings → Performance → Advanced → Virtual memory
-- **macOS**: No manual swap configuration needed
-- **Linux**: Create swap file or increase existing swap
+Use Activity Monitor.
 
-**Solution B: Model Management**
+**Windows:**
+
+Use Task Manager.
+
+### Use Lightweight Models
+
 ```bash
-# Remove unused models
+ollama pull gemma2:2b
+```
+
+Remove unused models:
+
+```bash
 ollama list
 ollama rm unused-model-name
-
-# Use lightweight models
-ollama pull gemma2:2b  # Only 1.4GB
 ```
 
-**Solution C: System Optimization**
-- Close unnecessary applications
-- Restart system to clear memory
-- Use task manager to kill memory-heavy processes
+Also close unnecessary applications when running larger models.
 
 ## Platform-Specific Issues
 
 ### Windows
 
-#### Common Issues
+Common issues include:
+
 - PowerShell execution policy
-- Windows Defender false positives
-- Path length limitations
+- Windows Defender warnings
+- Python PATH configuration
 
-#### Solutions
+Use the following when appropriate:
+
 ```powershell
-# Fix execution policy
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
-# Add Windows Defender exclusion for Ollama
-Add-MpPreference -ExclusionPath "C:\Users\%USERNAME%\AppData\Local\Programs\Ollama"
 ```
 
 ### macOS
 
-#### Common Issues
-- Gatekeeper blocking Ollama
+Common issues include:
+
+- Gatekeeper restrictions
 - Apple Silicon compatibility
-- Permission issues
+- Application permissions
 
-#### Solutions
-```bash
-# Allow Ollama in System Preferences
-# System Preferences → Security & Privacy → General → Allow apps downloaded from: App Store and identified developers
-
-# For Apple Silicon, ensure native version
-arch -arm64 ollama serve
-```
+Make sure Ollama is allowed to run in your system security settings.
 
 ### Linux
 
-#### Common Issues
-- Missing dependencies
-- Service management
-- File permissions
+Install common dependencies:
 
-#### Solutions
 ```bash
-# Install missing dependencies
 sudo apt update
 sudo apt install curl build-essential
-
-# Fix permissions
-sudo chown -R $USER:$USER ~/.ollama
-chmod +x ~/.local/bin/ollama
 ```
 
 ## Advanced Troubleshooting
 
-### Debug Mode
+### Debug Logging
 
-Enable debug logging to get more information:
+Add logging to `app.py` when debugging:
 
-1. **Add debug to app.py:**
 ```python
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 ```
 
-2. **Run with verbose output:**
+Run Streamlit with debug logging:
+
 ```bash
 streamlit run app.py --logger.level debug
 ```
 
-### Log Analysis
+### Streamlit Logs
 
-#### Ollama Logs
 ```bash
-# Find Ollama logs
-# Windows: %USERPROFILE%\.ollama\logs
-# macOS: ~/.ollama/logs
-# Linux: ~/.ollama/logs
-
-# View recent logs
-tail -f ~/.ollama/logs/server.log
-```
-
-#### Streamlit Logs
-```bash
-# Streamlit outputs logs to terminal
-# Look for error messages and stack traces
 streamlit run app.py 2>&1 | tee debug.log
 ```
 
-### Network Debugging
+### Test Ollama API
 
-#### Test API Endpoints
 ```bash
-# Test Ollama API
 curl http://localhost:11434/api/tags
-curl -X POST http://localhost:11434/api/generate -d '{"model":"gemma3","prompt":"Hello"}'
-
-# Test with different hosts
-curl http://127.0.0.1:11434/api/tags
 ```
 
-#### Proxy Issues
-If behind corporate firewall:
-```bash
-# Set proxy for pip
-pip install --proxy http://proxy.company.com:8080 -r requirements.txt
+You can also test the generate endpoint:
 
-# Set environment variables
-export HTTP_PROXY=http://proxy.company.com:8080
-export HTTPS_PROXY=http://proxy.company.com:8080
+```bash
+curl -X POST http://localhost:11434/api/generate \
+  -H "Content-Type: application/json" \
+  -d '{"model":"gemma3","prompt":"Hello"}'
 ```
 
 ## Getting Additional Help
 
-### 1. Gather Information
-Before seeking help, collect:
+### Gather Information
+
+Before reporting a problem, collect:
+
 - Operating system and version
-- Python version (`python --version`)
-- Ollama version (`ollama --version`)
-- Error messages (exact text)
-- Steps to reproduce the issue
+- Python version:
 
-### 2. Check Resources
-- [Ollama Documentation](https://ollama.ai/docs)
+```bash
+python --version
+```
+
+- Ollama version:
+
+```bash
+ollama --version
+```
+
+- Exact error message
+- Steps used to reproduce the issue
+
+### Useful Resources
+
+- [Ollama Documentation](https://ollama.com/)
 - [Streamlit Documentation](https://docs.streamlit.io)
-- [GitHub Issues](https://github.com/hari7261/AI-Tutor/issues)
+- [GitHub Issues](https://github.com/KrutikaBorase/AI-Tutor/issues)
 
-### 3. Report Issues
-When reporting bugs:
-- Use the issue template
-- Include system information
-- Provide error logs
-- Describe expected vs actual behavior
+### Report an Issue
 
-### 4. Community Support
-- [GitHub Discussions](https://github.com/hari7261/AI-Tutor/discussions)
-- Stack Overflow (tag: ai-tutor)
-- Reddit communities
+When reporting a bug, include:
+
+- System information
+- Error messages
+- Relevant logs
+- Steps to reproduce the issue
+- Expected behavior
+- Actual behavior
+
+### Community Support
+
+- [GitHub Discussions](https://github.com/KrutikaBorase/AI-Tutor/discussions)
+- Stack Overflow
 
 ## Maintenance Tips
 
-### Regular Maintenance
+Keep your environment and models updated:
+
 ```bash
-# Update models monthly
+# Update models
 ollama pull gemma3
 
-# Clear old cache
+# Clear Streamlit cache
 streamlit cache clear
 
-# Update dependencies
+# Update Python dependencies
 pip install -r requirements.txt --upgrade
 ```
-
-### Performance Monitoring
-- Monitor system resources regularly
-- Keep logs for pattern analysis
-- Update software components
 
 ---
 
 ## Still Having Issues?
 
-If none of these solutions work:
+If the problem persists:
 
-1. **Create a minimal test case**
-2. **Check the FAQ** in discussions
-3. **Open a GitHub issue** with full details
-4. **Join the community** for real-time help
+1. Create a minimal reproducible example.
+2. Check existing GitHub issues.
+3. Open a new [GitHub issue](https://github.com/KrutikaBorase/AI-Tutor/issues) with complete details.
 
-Remember: Most issues are simple configuration problems that can be solved quickly! 🔧
+Most issues are caused by configuration, dependencies, model availability, or system-resource limitations. 🔧
