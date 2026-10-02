@@ -5,22 +5,32 @@ Thank you for your interest in contributing to AI Tutor! This guide will help yo
 ## 🚀 Quick Start for Contributors
 
 ### 1. Fork and Clone
+
 ```bash
 # Fork the repository on GitHub
+
 # Clone your fork
 git clone https://github.com/YOUR_USERNAME/AI-Tutor.git
 cd AI-Tutor
 
-# Add upstream remote
-git remote add upstream https://github.com/hari7261/AI-Tutor.git
+# Add the original repository as upstream
+git remote add upstream https://github.com/KrutikaBorase/AI-Tutor.git
 ```
 
 ### 2. Set Up Development Environment
+
 ```bash
 # Create virtual environment
 python -m venv ai-tutor-dev
-source ai-tutor-dev/bin/activate  # macOS/Linux
-ai-tutor-dev\Scripts\activate     # Windows
+
+# Activate on macOS/Linux
+source ai-tutor-dev/bin/activate
+
+# Activate on Windows
+ai-tutor-dev\Scripts\activate
+
+# Install project dependencies
+pip install -r requirements.txt
 
 # Install development dependencies
 pip install -r requirements-dev.txt
@@ -30,380 +40,489 @@ pre-commit install
 ```
 
 ### 3. Create a Branch
+
 ```bash
-# Create feature branch
+# Create a feature branch
 git checkout -b feature/your-feature-name
 
-# Or bug fix branch
+# Or create a bug-fix branch
 git checkout -b fix/issue-number
 ```
 
 ## 📋 Types of Contributions
 
 ### 🐛 Bug Reports
-Found a bug? Help us fix it!
 
-**Before reporting:**
+Found a bug? Help us improve AI Tutor!
+
+Before reporting:
+
 - Check existing issues
-- Test with latest version
-- Gather system information
+- Test with the latest version
+- Gather relevant system information
 
-**Include in your report:**
+Include in your report:
+
 - Clear description of the bug
 - Steps to reproduce
-- Expected vs actual behavior
-- System information (OS, Python version, etc.)
-- Error messages and logs
+- Expected behavior
+- Actual behavior
+- Operating system and Python version
+- Error messages or logs
+- Relevant screenshots, if applicable
 
 ### 💡 Feature Requests
-Have an idea for improvement?
 
-**Before requesting:**
-- Check existing feature requests
-- Consider if it fits the project scope
-- Think about implementation complexity
+Have an idea for improving AI Tutor?
 
-**Include in your request:**
-- Clear description of the feature
-- Use cases and benefits
+Before requesting a feature:
+
+- Check existing issues and feature requests
+- Consider whether the feature fits the project scope
+- Describe the use case clearly
+- Consider possible implementation requirements
+
+Include in your request:
+
+- Clear description of the proposed feature
+- Use cases and expected benefits
 - Possible implementation approach
-- Mockups or examples (if applicable)
+- Mockups or examples, if applicable
 
 ### 📖 Documentation
+
 Documentation improvements are always welcome!
 
-**Areas to contribute:**
+Areas to contribute:
+
 - Fix typos and grammar
 - Add missing information
-- Improve clarity and examples
-- Translate to other languages
-- Add video tutorials or guides
+- Improve explanations and examples
+- Improve installation or usage instructions
+- Add tutorials or guides
+- Keep documentation consistent with the current project structure
 
 ### 🧪 Code Contributions
-Ready to code? Here's what we need:
 
-**Priority areas:**
+Code contributions can include:
+
 - Bug fixes
 - Performance improvements
-- New AI model integrations
-- UI/UX enhancements
+- AI model integrations
+- UI/UX improvements
+- Error-handling improvements
 - Test coverage improvements
+- Code quality improvements
 
 ## 🛠️ Development Guidelines
 
 ### Code Style
-We follow Python PEP 8 with some modifications:
+
+The project follows Python best practices and PEP 8 style guidelines.
+
+Use:
+
+- Clear and descriptive variable names
+- Type hints where appropriate
+- Docstrings for important functions
+- Small and maintainable functions
+- Comments for complex logic
+
+Example:
 
 ```python
-# Use type hints
-def get_models() -> List[str]:
-    return ["model1", "model2"]
-
-# Clear variable names
-available_models = get_available_models()
-selected_model = st.selectbox("Model", available_models)
-
-# Docstrings for functions
 def format_prompt(education_level: str, subject: str, prompt: str) -> str:
     """
     Format a prompt for the AI model based on education level and subject.
-    
+
     Args:
-        education_level: The student's education level
-        subject: The subject area for the prompt
-        prompt: The user's input prompt
-        
+        education_level: The student's education level.
+        subject: The subject area.
+        prompt: The user's input prompt.
+
     Returns:
-        Formatted prompt string for the AI model
+        A formatted prompt string.
     """
-    pass
+    return f"""
+    You are a {education_level}-level {subject} tutor.
+    Explain the following clearly and step by step:
+
+    {prompt}
+    """
 ```
 
-### File Structure
-```
+## 📁 Project Structure
+
+The current project structure is:
+
+```text
 AI-Tutor/
-├── app.py                    # Main application
-├── components/               # Reusable UI components
-│   ├── __init__.py
-│   ├── sidebar.py           # Sidebar configuration
-│   ├── chat.py              # Chat interface
-│   └── models.py            # Model selection
-├── utils/                   # Utility functions
-│   ├── __init__.py
-│   ├── prompts.py           # Prompt formatting
-│   ├── models.py            # Model management
-│   └── config.py            # Configuration loading
-├── tests/                   # Test files
-└── docs/                    # Documentation
+├── app.py
+├── assets/
+│   └── README.md
+├── config/
+│   └── models.yaml
+├── docs/
+│   ├── installation.md
+│   ├── troubleshooting.md
+│   └── usage.md
+├── tests/
+│   └── test_app.py
+├── image.png
+├── requirements.txt
+├── requirements-dev.txt
+├── CONTRIBUTING.md
+├── LICENSE
+└── README.md
 ```
 
-### Testing
-We aim for high test coverage:
+### Main Files and Directories
+
+- `app.py` - Main Streamlit application
+- `config/models.yaml` - AI model configuration and recommendations
+- `docs/` - Installation, usage, and troubleshooting documentation
+- `tests/` - Automated tests
+- `assets/` - Documentation assets and asset-related information
+- `requirements.txt` - Runtime dependencies
+- `requirements-dev.txt` - Development and testing dependencies
+- `README.md` - Project overview and getting started guide
+- `CONTRIBUTING.md` - Contribution guidelines
+- `LICENSE` - Project license
+
+## 🧪 Testing
+
+Before submitting changes, run the available tests.
+
+### Run all tests
 
 ```bash
-# Run all tests
 pytest
+```
 
-# Run with coverage
+### Run tests with coverage
+
+```bash
 pytest --cov=. --cov-report=html
+```
 
-# Run specific test file
-pytest tests/test_models.py
+### Run the application tests
 
-# Run integration tests
+```bash
+pytest tests/test_app.py
+```
+
+### Run integration tests
+
+```bash
 pytest -m integration
 ```
 
-**Test requirements:**
-- Unit tests for new functions
-- Integration tests for new features
-- Mock external dependencies (Ollama)
-- Test edge cases and error conditions
+Some integration tests require a working Ollama installation and locally available models.
 
-### Git Workflow
+### Testing Guidelines
 
-#### Commit Messages
-Use conventional commit format:
-```
+When adding new functionality:
+
+- Add unit tests where appropriate
+- Test normal and edge-case behavior
+- Test error handling
+- Mock external dependencies when appropriate
+- Make sure existing tests continue to pass
+
+## 🔄 Git Workflow
+
+### Commit Messages
+
+Use clear and descriptive commit messages.
+
+Recommended format:
+
+```text
 type(scope): description
-
-body (optional)
-
-footer (optional)
 ```
 
-**Types:**
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code formatting
-- `refactor`: Code restructuring
-- `test`: Adding tests
-- `chore`: Maintenance tasks
+Examples:
 
-**Examples:**
-```
-feat(models): add support for llama3 model
+```text
+feat(models): add support for a new model
 
-fix(ui): resolve sidebar layout issue on mobile
+fix(ui): improve model selection handling
 
 docs(readme): update installation instructions
 
-test(models): add unit tests for model detection
+test(app): add model detection tests
+
+refactor(app): simplify model ordering logic
 ```
 
-#### Pull Request Process
+Common commit types:
 
-1. **Before submitting:**
-   - Sync with upstream: `git pull upstream main`
-   - Run tests: `pytest`
-   - Check code style: `flake8 .`
-   - Update documentation if needed
+- `feat` - New feature
+- `fix` - Bug fix
+- `docs` - Documentation changes
+- `style` - Code formatting or style changes
+- `refactor` - Code restructuring
+- `test` - Adding or updating tests
+- `chore` - Maintenance tasks
 
-2. **PR Requirements:**
-   - Clear title and description
-   - Reference related issues
-   - Include screenshots for UI changes
-   - Add tests for new functionality
-   - Update documentation
+## 🔀 Pull Request Process
 
-3. **PR Template:**
-   ```markdown
-   ## Description
-   Brief description of changes
-   
-   ## Type of Change
-   - [ ] Bug fix
-   - [ ] New feature
-   - [ ] Documentation update
-   - [ ] Performance improvement
-   
-   ## Testing
-   - [ ] Tests pass locally
-   - [ ] Added new tests
-   - [ ] Manual testing completed
-   
-   ## Checklist
-   - [ ] Code follows style guidelines
-   - [ ] Self-review completed
-   - [ ] Documentation updated
-   - [ ] No breaking changes
-   ```
+### Before submitting a pull request
 
-## 🧩 Specific Contribution Areas
+1. Sync your branch with the upstream repository:
 
-### Adding New AI Models
-
-1. **Model Integration:**
-```python
-# In utils/models.py
-SUPPORTED_MODELS = {
-    'new-model': {
-        'name': 'New Model',
-        'size': '2GB',
-        'best_for': ['General'],
-        'install_command': 'ollama pull new-model'
-    }
-}
+```bash
+git fetch upstream
+git checkout main
+git pull upstream main
 ```
 
-2. **Update Configuration:**
+2. Return to your feature branch:
+
+```bash
+git checkout feature/your-feature-name
+```
+
+3. Rebase or merge the latest changes if required.
+
+4. Run the tests:
+
+```bash
+pytest
+```
+
+5. Review your changes:
+
+```bash
+git diff
+```
+
+6. Update documentation if your changes affect project usage or setup.
+
+### Pull Request Requirements
+
+Please include:
+
+- A clear title
+- A concise description of the changes
+- The reason for the change
+- Related issue number, if applicable
+- Tests or validation performed
+- Screenshots for UI changes, when useful
+- Documentation updates when required
+
+### Pull Request Template
+
+```markdown
+## Description
+
+Brief description of the changes.
+
+## Type of Change
+
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation update
+- [ ] Performance improvement
+- [ ] Refactoring
+- [ ] Test improvement
+
+## Testing
+
+- [ ] Tests pass locally
+- [ ] Added or updated tests
+- [ ] Manual testing completed
+
+## Checklist
+
+- [ ] Code follows project style guidelines
+- [ ] Self-review completed
+- [ ] Documentation updated if needed
+- [ ] No unnecessary changes included
+```
+
+## 🤖 AI Model Contributions
+
+AI Tutor uses Ollama for local AI model integration.
+
+When adding support for a new model:
+
+1. Verify that the model works with Ollama.
+2. Add the model to the appropriate configuration.
+3. Update documentation if necessary.
+4. Add or update tests where appropriate.
+5. Explain the model's intended use case.
+
+The model configuration is maintained in:
+
+```text
+config/models.yaml
+```
+
+Example configuration:
+
 ```yaml
-# In config/models.yaml
 preferred_models:
   - "new-model:latest"
+
+subject_models:
+  "Computer Science": "new-model"
 ```
 
-3. **Add Tests:**
-```python
-def test_new_model_detection():
-    # Test model detection logic
-    pass
-```
+## 🎨 UI/UX Improvements
 
-### UI/UX Improvements
+AI Tutor uses Streamlit for its user interface.
 
-1. **Component Structure:**
-```python
-# components/new_component.py
-import streamlit as st
+When making UI changes:
 
-def render_new_component():
-    """Render a new UI component."""
-    with st.container():
-        # Component implementation
-        pass
-```
+- Keep the interface simple and accessible
+- Maintain consistency with the existing design
+- Avoid unnecessary complexity
+- Test the interface locally
+- Consider different screen sizes where applicable
 
-2. **Styling:**
-```python
-# Use Streamlit's built-in styling
-st.markdown("""
-<style>
-    .custom-component {
-        /* Custom styles */
-    }
-</style>
-""", unsafe_allow_html=True)
-```
+## ⚡ Performance Improvements
 
-### Performance Improvements
+When improving performance:
 
-1. **Caching:**
+- Identify the actual bottleneck first
+- Avoid unnecessary model or API calls
+- Use caching where appropriate
+- Keep the implementation readable
+- Measure the effect of performance changes
+
+Example:
+
 ```python
 @st.cache_data
 def expensive_operation():
-    # Cache expensive operations
+    # Cache expensive operations when appropriate
     pass
 ```
 
-2. **Async Operations:**
-```python
-import asyncio
+## 📖 Documentation Improvements
 
-async def async_model_call():
-    # Async model calls for better performance
-    pass
+Documentation contributions are encouraged.
+
+When updating documentation:
+
+- Keep instructions clear and accurate
+- Use examples where helpful
+- Keep commands up to date
+- Maintain consistent Markdown formatting
+- Update related documentation when necessary
+
+Documentation is located in:
+
+```text
+docs/
+├── installation.md
+├── troubleshooting.md
+└── usage.md
 ```
 
-### Documentation Improvements
-
-1. **Code Documentation:**
-   - Add docstrings to all functions
-   - Include type hints
-   - Add inline comments for complex logic
-
-2. **User Documentation:**
-   - Update README for new features
-   - Add examples and tutorials
-   - Create troubleshooting guides
-
-## 🎯 Development Setup Details
+## 🔧 Development Setup
 
 ### Required Tools
+
 - Python 3.7+
 - Git
-- Ollama (for testing)
-- Code editor (VS Code recommended)
+- Ollama
+- A code editor such as VS Code
 
-### Development Dependencies
+### Install Dependencies
+
 ```bash
-# requirements-dev.txt
-pytest>=7.0.0
-pytest-cov>=4.0.0
-flake8>=5.0.0
-black>=22.0.0
-mypy>=0.991
-pre-commit>=2.20.0
-streamlit>=1.28.0
-ollama>=0.1.7
+pip install -r requirements.txt
 ```
 
-### IDE Configuration
+### Install Development Dependencies
 
-#### VS Code Settings
-```json
-{
-    "python.defaultInterpreterPath": "./ai-tutor-dev/bin/python",
-    "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.formatting.provider": "black",
-    "editor.formatOnSave": true
-}
+```bash
+pip install -r requirements-dev.txt
 ```
 
-#### Pre-commit Configuration
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: https://github.com/psf/black
-    rev: 22.10.0
-    hooks:
-      - id: black
-  - repo: https://github.com/PyCQA/flake8
-    rev: 5.0.4
-    hooks:
-      - id: flake8
+### Start Ollama
+
+Make sure Ollama is installed and running.
+
+```bash
+ollama serve
 ```
+
+Then install a supported model, for example:
+
+```bash
+ollama pull gemma3
+```
+
+Other supported models may include:
+
+```bash
+ollama pull llama3
+ollama pull deepseek-coder
+```
+
+## 🖥️ Running the Application
+
+From the project directory:
+
+```bash
+streamlit run app.py
+```
+
+The application will open in your browser.
 
 ## 🔍 Code Review Process
 
 ### For Contributors
-- Respond to feedback promptly
-- Make requested changes
-- Keep PRs focused and small
-- Write clear commit messages
+
+- Keep pull requests focused
+- Respond to review feedback
+- Make requested changes clearly
+- Keep commit messages descriptive
+- Test changes before requesting review
 
 ### For Reviewers
+
 - Be respectful and constructive
 - Focus on code quality and maintainability
-- Test changes locally when possible
-- Approve when ready for merge
+- Check functionality and edge cases
+- Verify documentation when relevant
+- Test changes when possible
 
 ## 🏆 Recognition
 
-Contributors will be recognized in:
-- README contributors section
+Contributors may be recognized through:
+
+- GitHub contributor history
+- Project documentation
 - Release notes
-- Special thanks in documentation
+- Special acknowledgements
 
 ## 📞 Getting Help
 
-### Development Questions
-- GitHub Discussions
-- Issue comments
-- Discord/Slack (if available)
+For questions or problems:
 
-### Mentorship
-New contributors can request mentorship for:
-- First-time contributions
-- Complex features
-- Best practices guidance
+- Check the project documentation
+- Review the troubleshooting guide
+- Search existing GitHub issues
+- Open a new issue when necessary
+
+Useful documentation:
+
+- [Installation Guide](docs/installation.md)
+- [Usage Guide](docs/usage.md)
+- [Troubleshooting Guide](docs/troubleshooting.md)
 
 ## 🎉 Thank You!
 
-Every contribution helps make AI Tutor better for learners everywhere. Whether it's a bug report, feature suggestion, or code contribution, your help is appreciated!
+Thank you for contributing to AI Tutor!
+
+Whether you report a bug, improve documentation, suggest a feature, add tests, or contribute code, every contribution helps improve the project.
 
 ---
 
-**Ready to contribute?** Start by checking our [Good First Issues](https://github.com/hari7261/AI-Tutor/labels/good%20first%20issue) label!
+**Repository:** https://github.com/KrutikaBorase/AI-Tutor
+
+**Author:** Krutika Borase
